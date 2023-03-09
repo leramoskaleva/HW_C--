@@ -52,20 +52,54 @@
 //пользователя ввод двух чисел. Если введенные числа принадлежат
 // диапазону от 0 до 10, то программа выводит результат умножения.
 
-while(true)
+int[,] FillMatrixWithRandom(int row, int column)
 {
-Console.Write("Введите число от 2 до 9: ");
-int number1 = Convert.ToInt32(Console.ReadLine());
-Console.Write("Введите число от 2 до 9: ");
-int number2 = Convert.ToInt32(Console.ReadLine());
-
-    if (number1 >= 1 && number1 <= 10 && number2 >= 1 && number2 <= 10)
+  int[,] matrix = new int[row, column];
+  Random rnd = new Random();
+  for (int i = 0; i < matrix.GetLength(0); i++)
+  {
+    for (int j = 0; j < matrix.GetLength(1); j++)
     {
-        Console.WriteLine($"{number1} * {number2} = {number1 * number2}");
-        break;
+      matrix[i, j] = rnd.Next(0, 10);
     }
-    else
-    {
-        Console.WriteLine("Числа должны быть в диапазоне от 2 до 9");
-    }
+  }
+  return matrix;
 }
+
+void PrintMatrix(int[,] matrix)
+{
+  for (int i = 0; i < matrix.GetLength(0); i++)
+  {
+    for (int j = 0; j < matrix.GetLength(1); j++)
+    {
+      System.Console.Write(matrix[i, j] + " ");
+    }
+    Console.WriteLine();
+  }
+}
+
+void PrintStatic(int[,] matrix)
+{
+  double resul = 0;
+  double sumStolb = 0;
+  for (int i = 0; i < matrix.GetLength(1); i++)
+  {
+    for (int j = 0; j < matrix.GetLength(0); j++)
+    {
+      sumStolb += matrix[j, i];
+    }
+    resul = sumStolb / matrix.GetLength(0);
+    Console.WriteLine($"Средне арифметическое {i + 1} столбца = {resul}");
+    resul = 0;
+    sumStolb = 0;
+  }
+}
+
+System.Console.Write("Введите кол-во строк: ");
+int row = Convert.ToInt32(Console.ReadLine());
+System.Console.Write("Введите кол-во столбцов: ");
+int column = Convert.ToInt32(Console.ReadLine());
+int[,] matrix = FillMatrixWithRandom(row, column);
+PrintMatrix(matrix);
+
+PrintStatic(matrix);
