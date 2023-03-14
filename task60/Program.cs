@@ -5,7 +5,7 @@
 //27(0,0,1) 90(0,1,1)
 //26(1,0,1) 55(1,1,1)
 
-int[,,] ArrayWithRandomNonRepeating(int[,,] arr, int minVal, int maxVal)
+int[,,] FillArrayWithRandomNumbers(int[,,] arr, int minVal, int maxVal)
 {
     int temp;
     bool check = false;
@@ -17,7 +17,7 @@ int[,,] ArrayWithRandomNonRepeating(int[,,] arr, int minVal, int maxVal)
             {
                 Random rnd = new Random();
                 temp = rnd.Next(minVal, maxVal);
-                check = CheckIfItRepeats(arr, temp);
+                check = CheckRepeats(arr, temp);
                 if (check)
                 {
                     arr[i, j, k] = temp;
@@ -33,7 +33,7 @@ int[,,] ArrayWithRandomNonRepeating(int[,,] arr, int minVal, int maxVal)
     return arr;
 }
 
-bool CheckIfItRepeats(int[,,] arr, int value)
+bool CheckRepeats(int[,,] arr, int value)
 {
     for (int i = 0; i < arr.GetLength(0); i++)
     {
@@ -67,18 +67,18 @@ void PrintMatrix(int[,,] arr)
     }
 }
 
-int Entry(string txt)
+int WriteNumbers(string txt)
 {
     Console.Write(txt);
     return Convert.ToInt32(Console.ReadLine());
 }
 
-int leaf = Entry("Введите длину третьего измерения: ");
-int row = Entry("Введите длину второго измерения: ");
-int column = Entry("Введите длину первого измерения: ");
-int miNum = Entry("Введите минимальное значение: ");
-int maxNum = Entry("Введите максимальное значение: ");
-int[,,] array = new int[leaf, row, column];
-array = ArrayWithRandomNonRepeating(array, miNum, maxNum);
+int column = WriteNumbers("Введите длину первого измерения: ");
+int row = WriteNumbers("Введите длину второго измерения: ");
+int number1 = WriteNumbers("Введите длину третьего измерения: ");
+int miNum = WriteNumbers("Введите минимальное значение (не менее 10): ");
+int maxNum = WriteNumbers("Введите максимальное значение (не более 99): ");
+int[,,] array = new int[number1, row, column];
+array = FillArrayWithRandomNumbers(array, miNum, maxNum);
 PrintMatrix(array);
 Console.WriteLine();
